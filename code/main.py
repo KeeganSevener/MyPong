@@ -17,6 +17,7 @@ class Game:
         # Create the player for right hand side and the ball
         self.player = Player((self.all_sprites, self.paddle_sprites))
         self.ball = Ball(self.all_sprites, self.paddle_sprites)
+        self.opponent = Opponent((self.all_sprites, self.paddle_sprites), self.ball)
 
     # Check if the ball collides with either paddle
     # My own original
