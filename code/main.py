@@ -19,16 +19,8 @@ class Game:
         self.ball = Ball(self.all_sprites, self.paddle_sprites)
         self.opponent = Opponent((self.all_sprites, self.paddle_sprites), self.ball)
 
-    # Check if the ball collides with either paddle
-    # My own original
-    """def ball_collide(self):
-        for sprite in self.paddle_sprites:
-            if sprite.rect.colliderect(self.ball):
-                if self.ball.direction.x > 0: self.ball.rect.right = sprite.rect.left
-                if self.ball.direction.x < 0: self.ball.rect.left = sprite.rect.right
-                self.ball.direction.x *= -1"""
 
-    #do something
+    # Runs the main game loop
     def run(self):
         while self.running:
             # Get delta time
@@ -38,15 +30,14 @@ class Game:
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     self.running = False
 
-            #Updates
+            # Updates
             self.all_sprites.update(dt)
 
-            #Drawing
+            # Drawing
             self.display_surface.fill(COLORS['bg'])
             # Draw sprites on display surface
             self.all_sprites.draw(self.display_surface)
             pygame.display.update()
-            #self.all_sprites.draw()
 
 # Only run if it is the main file.
 if __name__ == '__main__':
