@@ -1,15 +1,23 @@
+import pygame
+
 from settings import *
 from random import choice, uniform
 
 class Paddle(pygame.sprite.Sprite):
     def __init__(self, groups):
         super().__init__(groups)
-        # images
-        # Need to mack the image bigger so the shadow appears inside the drawing surface we are creating
-        self.image_size = (SIZE['paddle'][0] + 10, SIZE['paddle'][1])
+        # image for shadow and paddle
+        # Shadow size
+        self.shadow_size = 8
+        # Need to make the image bigger so the shadow appears inside the drawing surface we are creating
+        self.image_size = (SIZE['paddle'][0] + self.shadow_size, SIZE['paddle'][1] + self.shadow_size)
         self.image = pygame.Surface(self.image_size, pygame.SRCALPHA)
         # Paddle shadow
-        pygame.draw.rect(self.image, COLORS['paddle shadow'], pygame.FRect((10, 8), SIZE['paddle']), 0, 10)
+        for i in range(self.shadow_size):
+            pygame.draw.rect(self.image, COLORS['paddle shadow'],
+                             pygame.FRect((0, 0) + pygame.Vector2(i,i), SIZE['paddle']),
+                             0,
+                             10)
         # Paddle
         pygame.draw.rect(self.image, COLORS['paddle'], pygame.FRect((0,0), SIZE['paddle']), 0, 10)
 
@@ -62,11 +70,17 @@ class Ball(pygame.sprite.Sprite):
         self.update_score = update_score
 
         # image
+        # Need to make the image bigger so the shadow appears inside the drawing surface we are creating
         self.ball_surface_size = (45,45)
         self.image = pygame.Surface(self.ball_surface_size, pygame.SRCALPHA)
+        # Shadow size
+        self.shadow_size = 6
         # circle gets the image, a center, and a radius
         # Ball shadow
-        pygame.draw.circle(self.image, COLORS['ball shadow'], (SIZE['ball'][0] / 2 +5, SIZE['ball'][1] / 2 +5), SIZE['ball'][0] / 2)
+        for i in range(self.shadow_size):
+            pygame.draw.circle(self.image, COLORS['ball shadow'],
+                           (SIZE['ball'][0] / 2, SIZE['ball'][1] / 2) + pygame.Vector2(i,i),
+                           SIZE['ball'][0] / 2)
         # Ball
         pygame.draw.circle(self.image, COLORS['ball'], (SIZE['ball'][0] / 2, SIZE['ball'][1] / 2), SIZE['ball'][0]/2)
 
